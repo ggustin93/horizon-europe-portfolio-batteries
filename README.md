@@ -46,7 +46,7 @@ pytest                                   # unit tests, a second or two
 pytest --nbmake horizon_batteries.ipynb  # executes the notebook end to end (downloads ~60 MB on first run)
 ```
 
-The last step of the notebook, a small language-model prototype, runs only if `LLM_API_KEY` is set in the environment (`LLM_BASE_URL` and `LLM_MODEL` select any OpenAI-compatible provider). Without a key it prints a message and is skipped, as in the continuous integration.
+The last step of the notebook, a small language-model prototype, runs only if `LLM_API_KEY` is set in the environment (`LLM_BASE_URL` and `LLM_MODEL` select any OpenAI-compatible provider). Without a key it prints a message and is skipped, as in the continuous integration. The run kept in the notebook used `LLM_MODEL=ministral-8b-latest`.
 
 To export the executed notebook as a standalone HTML page (the file attached to the e-mail):
 
