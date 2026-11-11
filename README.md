@@ -64,7 +64,7 @@ The same steps apply to the whole of Horizon Europe, then to the other centrally
 
 ## AI use statement
 
-The code, the formatting and the drafting of the note and of the text in this repository were assisted by Claude Code (Anthropic). The framing, the decisions, the 20 hand labels and the final wording are mine. Every figure except the single model run can be reproduced by running the notebook.
+The code, the formatting and the drafting of the note and of the text in this repository were assisted by Claude Code (Anthropic). The framing, the decisions, the 20 hand labels and the final wording are mine. Every figure except the single model run can be reproduced by running the notebook on the same CORDIS snapshot (`data/SHA256SUMS`).
 
 ## Data
 
