@@ -1,0 +1,4 @@
+"id";"acronym";"title";"objective";"ecMaxContribution"
+"1";"GOOD";"Battery cell recycling";"Plain objective.";"2073781,25"
+"2";"BAD";"Title with a "stray; quote";"This row cannot be parsed.";"10,5"
+"3";"OK";"Another project";"Objective with ""escaped"" quotes; and a semicolon.";"1000000"

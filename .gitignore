@@ -1,0 +1,8 @@
+data/raw/
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+.env
+*.html
+.DS_Store
+.pytest_cache/
