@@ -2,13 +2,13 @@
 
 ![tests](https://github.com/ggustin93/horizon-europe-portfolio-batteries/actions/workflows/ci.yml/badge.svg)
 
-A short, reproducible look at what Horizon Europe has funded on batteries, built on the public CORDIS data. It starts from a deliberately vague request ("what have we funded on batteries and is it working — can you build us something with AI?") and shows how a business analyst turns it into a small, checkable data exploration before any tool is chosen.
+A short, reproducible look at what Horizon Europe has funded on batteries, built on the public CORDIS data. It starts from a deliberately vague request ("We need to know what we've funded on batteries and whether it's working. Can you build us something with AI?") and shows how a business analyst turns it into a small, checkable data exploration before any tool is chosen.
 
 This repository is the practical annex to a written note submitted for the same assignment. Nothing needs to run to follow the reasoning: GitHub renders [the notebook](horizon_batteries.ipynb) with its outputs, and an HTML export is attached to the e-mail. The notebook is the working environment; GitHub and VS Code are there to share it and open it.
 
 ## How I approached the assignment
 
-I started from the request as the user phrased it and separated its three questions (what was funded, what came out, where the gaps are) from the solution it asked for. I then checked the data before anything else: which files exist, which rows cannot be read, which taxonomy labels are missing. Only once the counts were on the table did I measure a simple rule against projects read by hand, so that any later AI step has a baseline to beat. Everything stays small on purpose: one notebook, one module, a few tests.
+I started from the request as the user phrased it and separated its three questions (what was funded, what came out, where the gaps are) from the solution it asked for. I then checked the data before anything else: which files exist, which rows cannot be read, which taxonomy labels are missing. After counting, I compared a simple rule with 20 projects I read by hand, so that any later AI step has a baseline to beat. The repository is small: one notebook, one module and its tests.
 
 ## Where each assignment item is addressed
 
@@ -29,7 +29,7 @@ I started from the request as the user phrased it and separated its three questi
 | `horizon_batteries.ipynb` | The notebook: the request, the data and its reuse terms, a quality check, a FAIR check (findable, accessible, interoperable, reusable), two definitions of the battery scope and their grey zone, what was funded (by year, instrument, programme part, participants, sub-themes), what came out so far (publications, deliverables, reports), a consistency check of the keyword rule on 20 projects read by hand, and what the unit should decide next. Readable as-is on GitHub. |
 | `src/cordis.py` | A small module the notebook calls: download the CORDIS files and check they are the ones the figures were made with, read them, flag projects by keyword, draw the 20-project sample, count where the rule, the hand labels and the optional model agree. |
 | `tests/` | Unit tests for the module, on a tiny sample file, no network needed. |
-| `data/annotation/` | The 20 projects labelled by hand (`sample.csv`: id, acronym, title, objective and a `label` column filled with `central`, `contributes`, `none` or `unsure`) and their strata, kept apart so that labelling is blind (`strata.csv`). Written once by the notebook, never overwritten. |
+| `data/annotation/` | The 20 projects labelled by hand (`sample.csv`: id, acronym, title, objective and a `label` column filled with `central`, `contributes`, `none` or `unsure`) and their strata, kept apart so that labelling is blind (`strata.csv`). Written once by the notebook, never overwritten. `model_answers.csv` is the log of the one model run kept in the notebook. |
 | `data/SHA256SUMS` | Fingerprints of the CORDIS archives the figures were produced with (the archives themselves are downloaded on first run, not committed). |
 | `.github/workflows/ci.yml` | Runs the tests and executes the notebook on every change. |
 
@@ -48,10 +48,10 @@ pytest --nbmake horizon_batteries.ipynb  # executes the notebook end to end (dow
 
 The last step of the notebook, a small language-model prototype, runs only if `LLM_API_KEY` is set in the environment (`LLM_BASE_URL` and `LLM_MODEL` select any OpenAI-compatible provider). Without a key it prints a message and is skipped, as in the continuous integration. The run kept in the notebook used `LLM_MODEL=ministral-8b-latest`.
 
-To export the executed notebook as a standalone HTML page (the file attached to the e-mail):
+To export the notebook, with the outputs it already holds, as a standalone HTML page (the file attached to the e-mail):
 
 ```bash
-jupyter nbconvert --to html --execute horizon_batteries.ipynb
+jupyter nbconvert --to html horizon_batteries.ipynb
 ```
 
 ## Open it in VS Code
@@ -60,11 +60,11 @@ Open the folder in VS Code; it recommends the Python and Jupyter extensions. Sel
 
 ## Scaling up
 
-The same steps apply to the whole of Horizon Europe, then to the other centrally managed programmes: a new theme changes only the keyword rule and the 20 labels. Antimicrobial resistance, for instance, would span Horizon Europe, EU4Health and the Global Health EDCTP3 Joint Undertaking.
+The same steps apply to the whole of Horizon Europe, then to the other centrally managed programmes: a new theme changes only the keyword rule and the 20 labels. Antimicrobial resistance, for instance, would span Horizon Europe, its Global Health EDCTP3 Joint Undertaking and EU4Health.
 
 ## AI use statement
 
-The code, the formatting and the drafting of the note and of the text in this repository were assisted by Claude Code (Anthropic). The framing, the decisions, the 20 hand labels and the final wording are mine. Every figure can be reproduced by running the notebook.
+The code, the formatting and the drafting of the note and of the text in this repository were assisted by Claude Code (Anthropic). The framing, the decisions, the 20 hand labels and the final wording are mine. Every figure except the single model run can be reproduced by running the notebook.
 
 ## Data
 
