@@ -1,0 +1,121 @@
+{%- extends 'lab/index.html.j2' -%}
+
+{# Code is folded behind a native toggle: the text and the results carry the reasoning. #}
+{% block input_group -%}
+<details class="code">
+<summary>Code</summary>
+{{ super() }}
+</details>
+{%- endblock input_group %}
+
+{%- block html_head_css -%}
+{{ super() }}
+<style>
+:root {
+  --ink: #1a1a1a; --muted: #5a5a5a; --paper: #fff; --rule: #d9dce3;
+  --blue: #1f3a93; --tint: #eef2fb; --code-bg: #f6f7f9;
+  --serif: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --jp-content-font-family: var(--serif); --jp-content-font-size1: 17px; --jp-content-line-height: 1.6;
+  --jp-content-font-color1: var(--ink); --jp-content-link-color: var(--blue);
+  --jp-code-font-family: var(--mono); --jp-code-font-size: 13px; --jp-code-line-height: 1.5;
+  --jp-layout-color0: var(--paper); --jp-cell-editor-background: var(--code-bg); --jp-cell-editor-border-color: transparent;
+}
+html { background: var(--paper); }
+body.jp-Notebook { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; color: var(--ink); background: var(--paper); }
+::selection { background: var(--tint); color: var(--blue); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 2px; }
+
+.jp-Cell { padding: 0; margin: 0; }
+.jp-InputPrompt, .jp-OutputPrompt, .jp-Collapser { display: none; }
+.jp-RenderedHTMLCommon { padding: 0; }
+.jp-RenderedHTMLCommon p { margin: 0 0 1em; max-width: 68ch; }
+.jp-RenderedHTMLCommon li { max-width: 66ch; margin-bottom: .3em; }
+.jp-RenderedHTMLCommon h1 { font-size: 2rem; line-height: 1.2; font-weight: 700; margin: 0 0 1.5rem; text-wrap: balance; border: 0; }
+.jp-RenderedHTMLCommon h2 { font-size: 1.35rem; line-height: 1.3; font-weight: 700; color: var(--blue); margin: 3.5rem 0 .9rem; padding-top: 1.1rem; border-top: 1px solid var(--rule); text-wrap: balance; }
+.jp-RenderedHTMLCommon h3 { font-size: 1.1rem; margin: 2rem 0 .6rem; }
+.jp-RenderedHTMLCommon a { color: var(--blue); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+.jp-RenderedHTMLCommon a:hover { text-decoration-thickness: 2px; }
+.jp-RenderedHTMLCommon a.anchor-link { display: none; }
+.jp-RenderedHTMLCommon code { font-family: var(--mono); font-size: .86em; background: var(--code-bg); padding: .1em .3em; border-radius: 3px; }
+.jp-RenderedHTMLCommon blockquote { margin: 1.2em 0; padding: 0 0 0 1.1em; border-left: 1px solid var(--rule); color: var(--muted); }
+
+.jp-RenderedHTMLCommon table { border-collapse: collapse; margin: 1.2rem 0 1.6rem; font-size: .92em; font-variant-numeric: tabular-nums lining-nums; width: 100%; }
+.jp-RenderedHTMLCommon thead th { text-align: left; font-weight: 700; border-bottom: 1.5px solid var(--ink); padding: .45rem .9rem .45rem 0; vertical-align: bottom; }
+.jp-RenderedHTMLCommon tbody td, .jp-RenderedHTMLCommon tbody th { text-align: left; border: 0; border-bottom: 1px solid var(--rule); padding: .5rem .9rem .5rem 0; vertical-align: top; }
+.jp-RenderedHTMLCommon tbody tr, .jp-RenderedHTMLCommon tbody tr:nth-child(even), .jp-RenderedHTMLCommon tbody tr:nth-child(odd), .jp-RenderedHTMLCommon tbody tr:hover { background: none; }
+.jp-OutputArea-output table th, .jp-OutputArea-output table td { text-align: left; }
+
+/* Results: what the code printed, kept visible */
+.jp-OutputArea-output pre { font-family: var(--mono); font-size: 12.5px; line-height: 1.55; font-variant-numeric: tabular-nums; color: var(--ink); background: none; padding: .2rem 0 .2rem 1rem; margin: .2rem 0 1.4rem; border-left: 1px solid var(--rule); overflow-x: auto; }
+.jp-OutputArea-output img { max-width: 100%; height: auto; display: block; margin: .5rem 0 1.5rem; }
+.jp-OutputArea-child { padding: 0; }
+
+/* Code: folded by default */
+details.code { margin: .2rem 0 .6rem; }
+details.code > summary { display: inline-flex; align-items: center; gap: .45rem; cursor: pointer; list-style: none; font-family: var(--mono); font-size: 12px; color: var(--muted); padding: .2rem .55rem; border: 1px solid var(--rule); border-radius: 4px; user-select: none; }
+details.code > summary::-webkit-details-marker { display: none; }
+details.code > summary::before { content: ""; width: .4rem; height: .4rem; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); transition: transform .15s cubic-bezier(.16,1,.3,1); }
+details.code[open] > summary::before { transform: rotate(45deg); }
+details.code > summary:hover { color: var(--blue); border-color: var(--blue); }
+details.code[open] > summary { margin-bottom: .4rem; }
+details.code .jp-InputArea-editor { border-radius: 6px; padding: .7rem .9rem; overflow-x: auto; }
+details.code .highlight { background: none; }
+
+/* Contents and the show-all switch, built from the headings */
+nav.contents { margin: 0 0 2.2rem; padding: 0 0 1.3rem; border-bottom: 1px solid var(--rule); font-size: .95rem; }
+.jp-RenderedHTMLCommon nav.contents ol { margin: 0; padding: 0; list-style: none; columns: 2; column-gap: 2rem; }
+.jp-RenderedHTMLCommon nav.contents li { margin: 0 0 .3rem; max-width: none; break-inside: avoid; }
+.jp-RenderedHTMLCommon nav.contents a { color: var(--ink); text-decoration: none; }
+.jp-RenderedHTMLCommon nav.contents a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: .18em; }
+button.all-code { font: 12px var(--mono); color: var(--muted); background: none; border: 1px solid var(--rule); border-radius: 4px; padding: .25rem .6rem; margin-top: .9rem; cursor: pointer; }
+button.all-code:hover { color: var(--blue); border-color: var(--blue); }
+.jp-RenderedHTMLCommon nav.contents p.source { margin: .9rem 0 0; font-size: .85rem; color: var(--muted); max-width: none; }
+
+@media (max-width: 40rem) {
+  body.jp-Notebook { padding: 1.5rem 1rem 3rem; }
+  :root { --jp-content-font-size1: 16px; }
+  .jp-RenderedHTMLCommon nav.contents ol { columns: 1; }
+  .jp-RenderedHTMLCommon table { display: block; overflow-x: auto; }
+}
+@media (prefers-reduced-motion: reduce) { details.code > summary::before { transition: none; } }
+@media print {
+  body.jp-Notebook { max-width: none; padding: 0; font-size: 10.5pt; }
+  details.code:not([open]), button.all-code { display: none; }
+  .jp-RenderedHTMLCommon h2 { break-after: avoid; margin-top: 1.6rem; }
+  .jp-OutputArea-output pre, .jp-RenderedHTMLCommon table, .jp-OutputArea-output img { break-inside: avoid; }
+  .jp-OutputArea-output pre { white-space: pre-wrap; font-size: 8.5pt; }
+}
+</style>
+{%- endblock html_head_css -%}
+
+{%- block footer_js -%}
+{{ super() }}
+<script>
+(function () {
+  var h1 = document.querySelector('h1');
+  var heads = Array.prototype.slice.call(document.querySelectorAll('h2[id]'));
+  if (!h1 || !heads.length) return;
+  var nav = document.createElement('nav'); nav.className = 'contents'; nav.setAttribute('aria-label', 'Contents');
+  var ol = document.createElement('ol');
+  heads.forEach(function (h) {
+    var li = document.createElement('li'), a = document.createElement('a');
+    a.href = '#' + h.id; a.textContent = h.textContent.replace(/¶$/, '').trim();
+    li.appendChild(a); ol.appendChild(li);
+  });
+  nav.appendChild(ol);
+  var all = Array.prototype.slice.call(document.querySelectorAll('details.code'));
+  if (all.length) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'all-code';
+    var label = function (open) { b.textContent = open ? 'Hide all code' : 'Show all code'; b.setAttribute('aria-pressed', open); };
+    label(false);
+    b.addEventListener('click', function () { var open = b.getAttribute('aria-pressed') !== 'true'; all.forEach(function (d) { d.open = open; }); label(open); });
+    nav.appendChild(b);
+  }
+  var src = document.createElement('p'); src.className = 'source';
+  src.innerHTML = 'This page is the notebook <code>horizon_batteries.ipynb</code>, exported with the outputs it holds. Code and data: <a href="https://github.com/ggustin93/horizon-europe-portfolio-batteries">the repository on GitHub</a>.';
+  nav.appendChild(src);
+  h1.insertAdjacentElement('afterend', nav);
+})();
+</script>
+{%- endblock footer_js -%}

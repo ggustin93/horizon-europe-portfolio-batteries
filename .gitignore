@@ -4,5 +4,6 @@ __pycache__/
 .venv/
 .env
 *.html
+!horizon_batteries.html
 .DS_Store
 .pytest_cache/
