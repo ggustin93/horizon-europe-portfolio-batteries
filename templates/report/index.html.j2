@@ -8,6 +8,39 @@
 </details>
 {%- endblock input_group %}
 
+{# A long list of raw answers is folded too; the tables that follow it stay visible. #}
+{% block stream_stdout -%}
+{%- set parts = output.text.split("\nModel labels per stratum") -%}
+{%- if "What the model answered" in parts[0] and parts | length == 2 %}
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<details class="code answers">
+<summary>Show the 20 answers (label and quoted sentence)</summary>
+<div class="jp-RenderedHTMLCommon">
+<table class="answers">
+<thead><tr><th>Project</th><th>Model label</th><th>Start of the sentence it quotes, as returned</th></tr></thead>
+<tbody>
+{%- for line in parts[0].strip("\n").split("\n")[1:] %}
+{%- if '  *"' in line %}
+{%- set left, quote = line.split('  *"', 1) %}
+{%- set cols = left.rsplit(None, 1) %}
+<tr><td>{{ cols[0].strip() | escape }}</td><td>{{ cols[1] | escape }}</td><td>*"{{ quote | escape }}</td></tr>
+{%- else %}
+<tr><td colspan="3">{{ line | escape }}</td></tr>
+{%- endif %}
+{%- endfor %}
+</tbody>
+</table>
+</div>
+</details>
+<pre>
+{{- ("Model labels per stratum" ~ parts[1]) | ansi2html -}}
+</pre>
+</div>
+{%- else %}
+{{ super() }}
+{%- endif %}
+{%- endblock stream_stdout %}
+
 {%- block html_head_css -%}
 {{ super() }}
 <style>
@@ -38,7 +71,12 @@ body.jp-Notebook { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 5rem;
 .jp-RenderedHTMLCommon a:hover { text-decoration-thickness: 2px; }
 .jp-RenderedHTMLCommon a.anchor-link { display: none; }
 .jp-RenderedHTMLCommon code { font-family: var(--mono); font-size: .86em; background: var(--code-bg); padding: .1em .3em; border-radius: 3px; }
-.jp-RenderedHTMLCommon blockquote { margin: 1.2em 0; padding: 0 0 0 1.1em; border-left: 1px solid var(--rule); color: var(--muted); }
+.jp-RenderedHTMLCommon blockquote { margin: 1.4em 0; padding: .9rem 1.2rem; border: 0; border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; background: #EEF2FB; color: var(--ink); }
+.jp-RenderedHTMLCommon blockquote p { max-width: none; }
+.jp-RenderedHTMLCommon p.byline { color: var(--muted); font-size: .95rem; margin: -.9rem 0 1.4rem; }
+.jp-RenderedHTMLCommon blockquote p:last-child { margin-bottom: 0; }
+.jp-RenderedHTMLCommon blockquote ul { margin: .4rem 0 .9rem; padding-left: 1.2rem; }
+.jp-RenderedHTMLCommon blockquote li { margin: .35rem 0; max-width: none; }
 
 .jp-RenderedHTMLCommon table { border-collapse: collapse; margin: 1.2rem 0 1.6rem; font-size: .92em; font-variant-numeric: tabular-nums lining-nums; width: 100%; }
 .jp-RenderedHTMLCommon thead th { text-align: left; font-weight: 700; border-bottom: 1.5px solid var(--ink); padding: .45rem .9rem .45rem 0; vertical-align: bottom; }
@@ -47,7 +85,7 @@ body.jp-Notebook { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 5rem;
 .jp-OutputArea-output table th, .jp-OutputArea-output table td { text-align: left; }
 
 /* Results: what the code printed, kept visible */
-.jp-OutputArea-output pre { font-family: var(--mono); font-size: 12.5px; line-height: 1.55; font-variant-numeric: tabular-nums; color: var(--ink); background: none; padding: .2rem 0 .2rem 1rem; margin: .2rem 0 1.4rem; border-left: 1px solid var(--rule); overflow-x: auto; }
+.jp-OutputArea-output pre { font-family: var(--mono); font-size: 12.5px; line-height: 1.55; font-variant-numeric: tabular-nums; color: var(--ink); background: none; padding: .2rem 0 .2rem 1rem; margin: .2rem 0 1.4rem; border-left: 1px solid var(--rule); overflow-x: auto; word-break: normal; overflow-wrap: break-word; }
 .jp-OutputArea-output img { max-width: 100%; height: auto; display: block; margin: .5rem 0 1.5rem; }
 .jp-OutputArea-child { padding: 0; }
 
@@ -61,6 +99,10 @@ details.code > summary:hover { color: var(--blue); border-color: var(--blue); }
 details.code[open] > summary { margin-bottom: .4rem; }
 details.code .jp-InputArea-editor { border-radius: 6px; padding: .7rem .9rem; overflow-x: auto; }
 details.code .highlight { background: none; }
+.jp-RenderedHTMLCommon table.answers { display: table; table-layout: auto; margin: .4rem 0 1.2rem; font-size: .85em; }
+.jp-RenderedHTMLCommon table.answers th, .jp-RenderedHTMLCommon table.answers td { text-align: left; }
+.jp-RenderedHTMLCommon table.answers th:nth-child(-n+2), .jp-RenderedHTMLCommon table.answers td:nth-child(-n+2) { white-space: nowrap; width: 1%; padding-right: 1.6rem; }
+.jp-RenderedHTMLCommon table.answers td:last-child { color: var(--muted); }
 
 /* Contents and the show-all switch, built from the headings */
 nav.contents { margin: 0 0 2.2rem; padding: 0 0 1.3rem; border-bottom: 1px solid var(--rule); font-size: .95rem; }
@@ -104,7 +146,7 @@ button.all-code:hover { color: var(--blue); border-color: var(--blue); }
     li.appendChild(a); ol.appendChild(li);
   });
   nav.appendChild(ol);
-  var all = Array.prototype.slice.call(document.querySelectorAll('details.code'));
+  var all = Array.prototype.slice.call(document.querySelectorAll('details.code:not(.answers)'));
   if (all.length) {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'all-code';
     var label = function (open) { b.textContent = open ? 'Hide all code' : 'Show all code'; b.setAttribute('aria-pressed', open); };
@@ -115,7 +157,10 @@ button.all-code:hover { color: var(--blue); border-color: var(--blue); }
   var src = document.createElement('p'); src.className = 'source';
   src.innerHTML = 'This page is the notebook <code>horizon_batteries.ipynb</code>, exported with the outputs it holds. Code and data: <a href="https://github.com/ggustin93/horizon-europe-portfolio-batteries">the repository on GitHub</a>.';
   nav.appendChild(src);
-  h1.insertAdjacentElement('afterend', nav);
+  var byline = h1.nextElementSibling;   // author and date stay under the title, above the list of sections
+  var after = byline && byline.tagName === 'P' && !byline.querySelector('strong') ? byline : h1;
+  if (after !== h1) after.className = 'byline';
+  after.insertAdjacentElement('afterend', nav);
 })();
 </script>
 {%- endblock footer_js -%}

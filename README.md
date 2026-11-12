@@ -33,7 +33,7 @@ Claude Code (Anthropic) helped with the code, the formatting and the drafting of
 | `horizon_batteries.html` | The report: the notebook exported as a web page, with the outputs it holds and the code folded. |
 | `src/cordis.py` | The small module the notebook calls: it downloads and checks the CORDIS files, flags projects by keyword, draws the 20-project sample, asks the optional model and counts where the rule, the hand labels and the model agree. |
 | `tests/` | Unit tests for the module, on a tiny sample file and small in-memory tables; no internet access needed. |
-| `templates/report/` | The page template of the report: code folded behind a toggle, a list of sections, print styles. |
+| `templates/report/` | The page template of the report: code and the list of the 20 model answers folded behind a toggle, a list of sections, print styles. |
 | `data/annotation/` | The 20 hand-labelled projects (`sample.csv`) and the stratum each was drawn from (`strata.csv`, kept apart so that the labeller does not see it); neither is ever overwritten. `model_answers.csv` logs the model run shown in the notebook; a new run with an API key overwrites it. |
 | `data/SHA256SUMS` | SHA-256 fingerprints of the CORDIS archives the figures were produced with (the archives themselves are downloaded on first run, not committed). |
 | `.github/workflows/ci.yml` | Runs the tests and executes the notebook on every push and pull request, downloading about 60 MB from CORDIS each time. It checks that the code runs, not that the figures match. |

@@ -7822,7 +7822,12 @@ body.jp-Notebook { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 5rem;
 .jp-RenderedHTMLCommon a:hover { text-decoration-thickness: 2px; }
 .jp-RenderedHTMLCommon a.anchor-link { display: none; }
 .jp-RenderedHTMLCommon code { font-family: var(--mono); font-size: .86em; background: var(--code-bg); padding: .1em .3em; border-radius: 3px; }
-.jp-RenderedHTMLCommon blockquote { margin: 1.2em 0; padding: 0 0 0 1.1em; border-left: 1px solid var(--rule); color: var(--muted); }
+.jp-RenderedHTMLCommon blockquote { margin: 1.4em 0; padding: .9rem 1.2rem; border: 0; border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; background: #EEF2FB; color: var(--ink); }
+.jp-RenderedHTMLCommon blockquote p { max-width: none; }
+.jp-RenderedHTMLCommon p.byline { color: var(--muted); font-size: .95rem; margin: -.9rem 0 1.4rem; }
+.jp-RenderedHTMLCommon blockquote p:last-child { margin-bottom: 0; }
+.jp-RenderedHTMLCommon blockquote ul { margin: .4rem 0 .9rem; padding-left: 1.2rem; }
+.jp-RenderedHTMLCommon blockquote li { margin: .35rem 0; max-width: none; }
 
 .jp-RenderedHTMLCommon table { border-collapse: collapse; margin: 1.2rem 0 1.6rem; font-size: .92em; font-variant-numeric: tabular-nums lining-nums; width: 100%; }
 .jp-RenderedHTMLCommon thead th { text-align: left; font-weight: 700; border-bottom: 1.5px solid var(--ink); padding: .45rem .9rem .45rem 0; vertical-align: bottom; }
@@ -7831,7 +7836,7 @@ body.jp-Notebook { max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 5rem;
 .jp-OutputArea-output table th, .jp-OutputArea-output table td { text-align: left; }
 
 /* Results: what the code printed, kept visible */
-.jp-OutputArea-output pre { font-family: var(--mono); font-size: 12.5px; line-height: 1.55; font-variant-numeric: tabular-nums; color: var(--ink); background: none; padding: .2rem 0 .2rem 1rem; margin: .2rem 0 1.4rem; border-left: 1px solid var(--rule); overflow-x: auto; }
+.jp-OutputArea-output pre { font-family: var(--mono); font-size: 12.5px; line-height: 1.55; font-variant-numeric: tabular-nums; color: var(--ink); background: none; padding: .2rem 0 .2rem 1rem; margin: .2rem 0 1.4rem; border-left: 1px solid var(--rule); overflow-x: auto; word-break: normal; overflow-wrap: break-word; }
 .jp-OutputArea-output img { max-width: 100%; height: auto; display: block; margin: .5rem 0 1.5rem; }
 .jp-OutputArea-child { padding: 0; }
 
@@ -7845,6 +7850,10 @@ details.code > summary:hover { color: var(--blue); border-color: var(--blue); }
 details.code[open] > summary { margin-bottom: .4rem; }
 details.code .jp-InputArea-editor { border-radius: 6px; padding: .7rem .9rem; overflow-x: auto; }
 details.code .highlight { background: none; }
+.jp-RenderedHTMLCommon table.answers { display: table; table-layout: auto; margin: .4rem 0 1.2rem; font-size: .85em; }
+.jp-RenderedHTMLCommon table.answers th, .jp-RenderedHTMLCommon table.answers td { text-align: left; }
+.jp-RenderedHTMLCommon table.answers th:nth-child(-n+2), .jp-RenderedHTMLCommon table.answers td:nth-child(-n+2) { white-space: nowrap; width: 1%; padding-right: 1.6rem; }
+.jp-RenderedHTMLCommon table.answers td:last-child { color: var(--muted); }
 
 /* Contents and the show-all switch, built from the headings */
 nav.contents { margin: 0 0 2.2rem; padding: 0 0 1.3rem; border-bottom: 1px solid var(--rule); font-size: .95rem; }
@@ -7879,9 +7888,19 @@ button.all-code:hover { color: var(--blue); border-color: var(--blue); }
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="What-have-we-funded-on-batteries?-A-first-look-at-the-CORDIS-data">What have we funded on batteries? A first look at the CORDIS data<a class="anchor-link" href="#What-have-we-funded-on-batteries?-A-first-look-at-the-CORDIS-data">¶</a></h1><p><strong>In short.</strong> In the public CORDIS data, 278 Horizon Europe projects have a battery term in their title and 662 mention one anywhere. Among projects at least two years old, fellowships set aside, 68% of battery projects have a publication, against 63% across the programme. I read 20 borderline projects by hand: of the 15 that the keyword rule includes, I judged 13 not about batteries. Those cases were drawn where the rule is weakest, so this is not an error rate for the 662. The decisions this leaves to the unit are in section 8.</p>
+<h1 id="What-have-we-funded-on-batteries?-A-first-look-at-the-CORDIS-data">What have we funded on batteries? A first look at the CORDIS data<a class="anchor-link" href="#What-have-we-funded-on-batteries?-A-first-look-at-the-CORDIS-data">¶</a></h1><p>Guillaume Gustin · 12 November 2026 · CORDIS data of 8 October 2026</p>
 <p><strong>The request.</strong> A policy unit asks, through its Feedback to Policy (F2P) Correspondent: <em>"We need to know what we've funded on batteries and whether it's working. Can you build us something with AI?"</em> It asks two questions, implies a third (where the gaps are) and names a solution before any of them is defined. This notebook checks how far the public data can answer the first.</p>
-<p><strong>How to read this page.</strong> The text and the results carry the reasoning; the code is there for readers who want to check it. A reader with little time can keep to this summary, the chart in section 5 and section 8.</p>
+<blockquote>
+<p><strong>In short</strong></p>
+<p>The public data can say what was funded only once the unit defines a battery project, and cannot by themselves say whether it is working. Five decisions are left to the unit: scope, definition, what "working" means, how to record the definition, and criteria for a pilot.</p>
+<ul>
+<li>Depending on the definition, 278 Horizon Europe projects (a battery term in the title) or 662 (in the title, objective or keywords).</li>
+<li>Among the projects of the broad set that are at least two years old, fellowships excluded, 68% have a publication, against 63% across the programme: a gap that can be due to chance. A publication shows that a project reports, not that it works.</li>
+<li>I checked 20 projects by hand, as a single non-specialist, chosen where the word search is least reliable. It counts 15 of them as battery projects; I judged 13 of these not about batteries. This tests the weak spots, not the 662.</li>
+<li>A small language model, run once on the same 20, set aside the other senses of the word but labelled many more projects as contributing than I did.</li>
+</ul>
+<p><strong>Short on time?</strong> Read this summary, <a href="#5.-What-was-funded,-for-the-broad-definition">the chart in section 5</a> and <a href="#8.-What-the-unit-should-decide-next">the decisions in section 8</a>. The code is folded: open it to check a figure.</p>
+</blockquote>
 </div>
 </div>
 </div>
@@ -8115,7 +8134,7 @@ In the broad set but not the narrow one:                   384 projects
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Reading the two counts.</strong> Neither set is right by itself. The narrow one misses projects where batteries are one work package among others. The broad one catches single mentions, battery-free devices and the word in another sense ("a battery of tests"). The cell below sizes this grey zone: the term is not in the title and appears fewer than three times. This is where a model would help most. The cut at three mentions is mine; the distribution is printed so that the unit can move it.</p>
+<p><strong>Reading the two counts.</strong> Neither set is right by itself. The narrow one misses projects where batteries are one work package among others. The broad one catches single mentions, battery-free devices and the word in another sense ("a battery of tests"). The cell below sizes this grey zone: the term is not in the title and appears fewer than three times. The threshold of three mentions is a working choice: the counts below let the unit set another. The table shows four projects caught for the other sense of the word.</p>
 </div>
 </div>
 </div>
@@ -8138,24 +8157,26 @@ In the broad set but not the narrow one:                   384 projects
 <span class="n">once_outside_title</span> <span class="o">=</span> <span class="n">in_text</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">in_title</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mentions</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">grey</span> <span class="o">=</span> <span class="n">in_text</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">in_title</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mentions</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Broad set:                                              </span><span class="si">{</span><span class="n">in_text</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;5,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  term used in another sense ('a battery of ...'):        </span><span class="si">{</span><span class="p">(</span><span class="n">in_text</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other_sense</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;5,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  battery-free or batteryless devices:                   </span><span class="si">{</span><span class="p">(</span><span class="n">in_text</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">battery_free</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;5,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  term mentioned once, outside the title:                </span><span class="si">{</span><span class="n">once_outside_title</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;5,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"Grey zone (not in title, fewer than three mentions):    </span><span class="si">{</span><span class="n">grey</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;5,</span><span class="si">}</span><span class="s2">"</span>
-    <span class="sa">f</span><span class="s2">"  (</span><span class="si">{</span><span class="n">grey</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">in_text</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> of the broad set)"</span>
-<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Broad set: </span><span class="si">{</span><span class="n">in_text</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> projects"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- term used in another sense ('a battery of ...'): </span><span class="si">{</span><span class="p">(</span><span class="n">in_text</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">other_sense</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- battery-free or batteryless devices: </span><span class="si">{</span><span class="p">(</span><span class="n">in_text</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">battery_free</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- term mentioned once, outside the title: </span><span class="si">{</span><span class="n">once_outside_title</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
 <span class="n">grey_msca</span> <span class="o">=</span> <span class="n">grey</span> <span class="o">&amp;</span> <span class="n">projects</span><span class="p">[</span><span class="s2">"fundingScheme"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">"MSCA"</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">grey_erc</span> <span class="o">=</span> <span class="n">grey</span> <span class="o">&amp;</span> <span class="n">projects</span><span class="p">[</span><span class="s2">"fundingScheme"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"HORIZON-ERC"</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  of which fellowships: </span><span class="si">{</span><span class="n">grey_msca</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">, ERC grants: </span><span class="si">{</span><span class="n">grey_erc</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">per_project</span> <span class="o">=</span> <span class="n">mentions</span><span class="p">[</span><span class="n">in_text</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">in_title</span><span class="p">]</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">upper</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="mi">4</span><span class="p">:</span> <span class="s2">"4 or more"</span><span class="p">})</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">"Mentions per project in the broad set, outside the title: "</span>
-    <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">per_project</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Grey zone (not in title, fewer than three mentions): </span><span class="si">{</span><span class="n">grey</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> projects,"</span>
+    <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">grey</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">in_text</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> of the broad set"</span>
 <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- fellowships: </span><span class="si">{</span><span class="n">grey_msca</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- ERC grants: </span><span class="si">{</span><span class="n">grey_erc</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Battery-free devices with the term in the title (in the narrow set): </span><span class="si">{</span><span class="p">(</span><span class="n">in_title</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">battery_free</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">per_project</span> <span class="o">=</span> <span class="n">mentions</span><span class="p">[</span><span class="n">in_text</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">in_title</span><span class="p">]</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">upper</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="mi">4</span><span class="p">:</span> <span class="s2">"4 or more"</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Mentions per project in the broad set, outside the title"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">per_project</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Battery-free devices with the term in the title (in the narrow set): </span><span class="si">{</span><span class="p">(</span><span class="n">in_title</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">battery_free</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="n">examples</span> <span class="o">=</span> <span class="n">projects</span><span class="p">[</span><span class="n">in_text</span> <span class="o">&amp;</span> <span class="n">other_sense</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">examples</span><span class="p">[</span><span class="s2">"snippet"</span><span class="p">]</span> <span class="o">=</span> <span class="n">examples</span><span class="p">[</span><span class="s2">"objective"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
@@ -8175,13 +8196,21 @@ In the broad set but not the narrow one:                   384 projects
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Broad set:                                                662
-  term used in another sense ('a battery of ...'):           14
-  battery-free or batteryless devices:                      23
-  term mentioned once, outside the title:                  237
-Grey zone (not in title, fewer than three mentions):      292  (44% of the broad set)
-  of which fellowships: 83, ERC grants: 59
-Mentions per project in the broad set, outside the title: 1: 237, 2: 55, 3: 30, 4 or more: 62
+<pre>Broad set: 662 projects
+- term used in another sense ('a battery of ...'): 14
+- battery-free or batteryless devices: 23
+- term mentioned once, outside the title: 237
+
+Grey zone (not in title, fewer than three mentions): 292 projects, 44% of the broad set
+- fellowships: 83
+- ERC grants: 59
+
+Mentions per project in the broad set, outside the title
+- 1: 237
+- 2: 55
+- 3: 30
+- 4 or more: 62
+
 Battery-free devices with the term in the title (in the narrow set): 5
 </pre>
 </div>
@@ -8228,7 +8257,7 @@ Battery-free devices with the term in the title (in the narrow set): 5
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>What the taxonomy says about the same projects.</strong> Of the 59 projects labelled <em>electric batteries</em> in euroSciVoc, 57 can be read from the file and the keyword rule catches all 57 (the other two are most likely among the rows excluded in section 2). But the label covers under a tenth of the broad set: euroSciVoc describes scientific fields, not policy themes. Agreeing a definition with the unit, and recording it as metadata, is part of the work.</p>
+<p><strong>What the taxonomy says about the same projects.</strong> Of the 59 projects labelled <em>electric batteries</em> in euroSciVoc, 57 can be read from the file and the keyword rule catches all 57 (the other two are most likely among the rows excluded in section 2). But the label covers under a tenth of the broad set: euroSciVoc describes scientific fields, not policy themes.</p>
 </div>
 </div>
 </div>
@@ -8246,10 +8275,10 @@ Battery-free devices with the term in the title (in the narrow set): 5
 <span class="n">battery_label</span> <span class="o">=</span> <span class="n">eurosci</span><span class="p">[</span><span class="n">is_battery_label</span><span class="p">][</span><span class="s2">"projectID"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 <span class="n">readable</span> <span class="o">=</span> <span class="n">projects</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">battery_label</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Projects labelled 'electric batteries' in euroSciVoc:            </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">battery_label</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;4,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  of which readable in project.csv (the rest are unparseable rows): </span><span class="si">{</span><span class="n">readable</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;4,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  of which caught by the broad keyword rule:                        </span><span class="si">{</span><span class="p">(</span><span class="n">readable</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">in_text</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;4,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Share of the broad set that carries the label:                     </span><span class="si">{</span><span class="n">readable</span><span class="p">[</span><span class="n">in_text</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;5.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Projects labelled 'electric batteries' in euroSciVoc: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">battery_label</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- readable in project.csv (the rest are unparseable rows): </span><span class="si">{</span><span class="n">readable</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- caught by the broad keyword rule: </span><span class="si">{</span><span class="p">(</span><span class="n">readable</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">in_text</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Share of the broad set that carries the label: </span><span class="si">{</span><span class="n">readable</span><span class="p">[</span><span class="n">in_text</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8263,10 +8292,11 @@ Battery-free devices with the term in the title (in the narrow set): 5
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Projects labelled 'electric batteries' in euroSciVoc:              59
-  of which readable in project.csv (the rest are unparseable rows):   57
-  of which caught by the broad keyword rule:                          57
-Share of the broad set that carries the label:                      8.6%
+<pre>Projects labelled 'electric batteries' in euroSciVoc: 59
+- readable in project.csv (the rest are unparseable rows): 57
+- caught by the broad keyword rule: 57
+
+Share of the broad set that carries the label: 8.6%
 </pre>
 </div>
 </div>
@@ -8301,15 +8331,9 @@ Share of the broad set that carries the label:                      8.6%
 <span class="n">scope</span><span class="p">[</span><span class="s2">"is_d2"</span><span class="p">]</span> <span class="o">=</span> <span class="n">scope</span><span class="p">[</span><span class="s2">"topics"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">r</span><span class="s2">"CL5-20\d\d-(?:\d\d-)?D2"</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Broad set: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> projects"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  under a Cluster 5 / Destination 2 topic (where the BATT4EU calls sit): </span><span class="si">{</span><span class="n">scope</span><span class="p">[</span><span class="s1">'is_d2'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;4,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"  Marie Skłodowska-Curie fellowships and networks:                        "</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">scope</span><span class="p">[</span><span class="s1">'is_msca'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;4,</span><span class="si">}</span><span class="s2">  (</span><span class="si">{</span><span class="n">scope</span><span class="p">[</span><span class="s1">'is_msca'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2">)"</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"  ERC grants:                                                             "</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">scope</span><span class="p">[</span><span class="s1">'fundingScheme'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'HORIZON-ERC'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;4,</span><span class="si">}</span><span class="s2">"</span>
-<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- under a Cluster 5 / Destination 2 topic (where the BATT4EU calls sit): </span><span class="si">{</span><span class="n">scope</span><span class="p">[</span><span class="s1">'is_d2'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Marie Skłodowska-Curie fellowships and networks: </span><span class="si">{</span><span class="n">scope</span><span class="p">[</span><span class="s1">'is_msca'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">scope</span><span class="p">[</span><span class="s1">'is_msca'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- ERC grants: </span><span class="si">{</span><span class="n">scope</span><span class="p">[</span><span class="s1">'fundingScheme'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'HORIZON-ERC'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8324,9 +8348,9 @@ Share of the broad set that carries the label:                      8.6%
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Broad set: 662 projects
-  under a Cluster 5 / Destination 2 topic (where the BATT4EU calls sit):   98
-  Marie Skłodowska-Curie fellowships and networks:                         221  (33%)
-  ERC grants:                                                              103
+- under a Cluster 5 / Destination 2 topic (where the BATT4EU calls sit): 98
+- Marie Skłodowska-Curie fellowships and networks: 221 (33%)
+- ERC grants: 103
 </pre>
 </div>
 </div>
@@ -8339,7 +8363,7 @@ Share of the broad set that carries the label:                      8.6%
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="5.-What-was-funded,-for-the-broad-definition">5. What was funded, for the broad definition<a class="anchor-link" href="#5.-What-was-funded,-for-the-broad-definition">¶</a></h2><p>Taking the broad set as the working scope: projects and EU contribution by start year, by part of the programme (pillar and cluster) and by instrument. Amounts are the maximum EU contribution in each grant agreement, not the amount paid. Fellowships are shown apart: they are a third of the set. Figures are those of the CORDIS export of early October 2026, without the unreadable rows of section 2. The last two years are incomplete: projects from recent calls are still being signed.</p>
+<h2 id="5.-What-was-funded,-for-the-broad-definition">5. What was funded, for the broad definition<a class="anchor-link" href="#5.-What-was-funded,-for-the-broad-definition">¶</a></h2><p>Taking the broad set as the working scope: projects and EU contribution by start year, by part of the programme (pillar and cluster) and by instrument. Amounts are the maximum EU contribution in each grant agreement, not the amount paid. Fellowships are shown apart: they are a third of the set. Figures are those of the CORDIS export of early October 2026, without the unreadable rows of section 2. The last two years are incomplete: projects from recent calls are still being signed. Programme-part names are those of <code>legalBasis.csv</code> in the same archive; I added the pillar and cluster numbers.</p>
 </div>
 </div>
 </div>
@@ -8461,7 +8485,7 @@ Pillar II - Cluster 1 Health                                         1          
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Research or demonstration?</strong> The funding instrument says what kind of work was funded: research and innovation actions (RIA) explore, innovation actions (IA) demonstrate at scale, the European Innovation Council (EIC) backs start-ups, the European Research Council (ERC) funds frontier science, coordination and support actions (CSA) fund networks, and fellowships train researchers. A few fellowships sit under other programme parts in the table above (214 against 221). Of the funding views, the chart below is the one I would show the unit first.</p>
+<p><strong>Research or demonstration?</strong> The funding instrument says what kind of work was funded: research and innovation actions (RIA) explore, innovation actions (IA) demonstrate at scale, the European Innovation Council (EIC) backs start-ups, the European Research Council (ERC) funds frontier science, coordination and support actions (CSA) fund networks, and fellowships train researchers. A few fellowships sit under other programme parts in the table above (214 against 221).</p>
 </div>
 </div>
 </div>
@@ -8552,7 +8576,7 @@ Coordination and support (CSA)               15                          36.6
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>How to read this.</strong> Three quarters of the money is in innovation actions and research and innovation actions together; the largest group of <em>projects</em> is the fellowships, with small budgets. A caution: the five largest single-mention projects (EUR 141 million, all innovation actions) are ones I judged not about batteries in section 7, so the bars overstate. None of this says whether the funding "is working".</p>
+<p><strong>How to read this.</strong> Three quarters of the money is in innovation actions and research and innovation actions together; the largest group of <em>projects</em> is the fellowships, with small budgets. The five largest single-mention projects (EUR 141 million, all innovation actions) are ones I judged not about batteries in section 7, so the bars overstate.</p>
 </div>
 </div>
 </div>
@@ -8566,7 +8590,7 @@ Coordination and support (CSA)               15                          36.6
 <h2 id="6.-What-came-out,-so-far:-publications,-deliverables,-reports">6. What came out, so far: publications, deliverables, reports<a class="anchor-link" href="#6.-What-came-out,-so-far:-publications,-deliverables,-reports">¶</a></h2><p>"Is it working?" needs a definition from the unit. The public files give a first indicator: did projects produce anything that can be counted?</p>
 <ul>
 <li><strong>Publications</strong>, joined by project id. They measure scientific reporting, not impact, and innovation actions publish less by design.</li>
-<li><strong>Deliverables</strong>: a type, a short description and a link. Many descriptions announce planned work (43% contain "will"), not a result.</li>
+<li><strong>Deliverables</strong>: a type, a short description and a link. Many descriptions announce planned work, not a result.</li>
 <li><strong>Report summaries</strong>: a title and an attachment reference, with no summary text.</li>
 </ul>
 <p>Both sides of the comparison below are limited to projects that are not fellowships and started at least two years before the snapshot; the mix of instruments still differs.</p>
@@ -8598,17 +8622,17 @@ Coordination and support (CSA)               15                          36.6
 <span class="n">all_mature</span> <span class="o">=</span> <span class="n">mature</span><span class="p">(</span><span class="n">projects</span><span class="p">)</span>
 <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">with_publication</span><span class="p">(</span><span class="n">battery_mature</span><span class="p">),</span> <span class="n">with_publication</span><span class="p">(</span><span class="n">all_mature</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Projects started at least two years ago, fellowships excluded"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Projects started at least two years ago, fellowships excluded"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"  batteries, broad definition: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">battery_mature</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;6,</span><span class="si">}</span><span class="s2"> projects,"</span>
+    <span class="sa">f</span><span class="s2">"- batteries, broad definition: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">battery_mature</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> projects,"</span>
     <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> with at least one publication, median </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">"</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"  whole programme (baseline):  </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_mature</span><span class="p">)</span><span class="si">:</span><span class="s2">&gt;6,</span><span class="si">}</span><span class="s2"> projects,"</span>
+    <span class="sa">f</span><span class="s2">"- whole programme (baseline): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_mature</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> projects,"</span>
     <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> with at least one publication, median </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">"</span>
 <span class="p">)</span>
 <span class="n">top5</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  the five most published battery projects hold </span><span class="si">{</span><span class="n">top5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> of the set's publications"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- the five most published battery projects hold </span><span class="si">{</span><span class="n">top5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> of the set's publications"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Share with at least one publication, by instrument (battery set, same filter)"</span><span class="p">)</span>
 <span class="n">by_instrument_published</span> <span class="o">=</span> <span class="p">(</span>
@@ -8633,9 +8657,9 @@ Coordination and support (CSA)               15                          36.6
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Projects started at least two years ago, fellowships excluded
-  batteries, broad definition:    278 projects, 68% with at least one publication, median 2
-  whole programme (baseline):   8,967 projects, 63% with at least one publication, median 2
-  the five most published battery projects hold 16% of the set's publications
+- batteries, broad definition: 278 projects, 68% with at least one publication, median 2
+- whole programme (baseline): 8,967 projects, 63% with at least one publication, median 2
+- the five most published battery projects hold 16% of the set's publications
 
 Share with at least one publication, by instrument (battery set, same filter)
                                        projects share with a publication
@@ -8665,35 +8689,30 @@ Research and innovation actions (RIA)        94                      87%
 <span class="n">reports_zip</span> <span class="o">=</span> <span class="n">cordis</span><span class="o">.</span><span class="n">fetch_zip</span><span class="p">(</span><span class="s2">"cordis-HORIZONreports-csv.zip"</span><span class="p">)</span>
 <span class="n">deliverables</span><span class="p">,</span> <span class="n">deliverables_excluded</span> <span class="o">=</span> <span class="n">cordis</span><span class="o">.</span><span class="n">read_from_zip</span><span class="p">(</span><span class="n">deliverables_zip</span><span class="p">,</span> <span class="s2">"projectDeliverables.csv"</span><span class="p">)</span>
 <span class="n">reports</span><span class="p">,</span> <span class="n">reports_excluded</span> <span class="o">=</span> <span class="n">cordis</span><span class="o">.</span><span class="n">read_from_zip</span><span class="p">(</span><span class="n">reports_zip</span><span class="p">,</span> <span class="s2">"reportSummaries.csv"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"projectDeliverables.csv </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">deliverables</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows read, </span><span class="si">{</span><span class="n">deliverables_excluded</span><span class="si">}</span><span class="s2"> excluded;"</span>
-    <span class="sa">f</span><span class="s2">" reportSummaries.csv </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">reports</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows read, </span><span class="si">{</span><span class="n">reports_excluded</span><span class="si">}</span><span class="s2"> excluded</span><span class="se">\n</span><span class="s2">"</span>
-<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Rows read"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- projectDeliverables.csv: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">deliverables</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows read, </span><span class="si">{</span><span class="n">deliverables_excluded</span><span class="si">}</span><span class="s2"> excluded"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- reportSummaries.csv: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">reports</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows read, </span><span class="si">{</span><span class="n">reports_excluded</span><span class="si">}</span><span class="s2"> excluded"</span><span class="p">)</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">deliverables</span><span class="p">[</span><span class="n">deliverables</span><span class="p">[</span><span class="s2">"projectID"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">scope</span><span class="p">[</span><span class="s2">"id"</span><span class="p">])]</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">reports</span><span class="p">[</span><span class="n">reports</span><span class="p">[</span><span class="s2">"projectID"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">scope</span><span class="p">[</span><span class="s2">"id"</span><span class="p">])]</span>
 <span class="n">words</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+<span class="n">has_will</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\bwill\b"</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Deliverables: </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">'projectID'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> battery projects list at least one"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> deliverables, median </span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'projectID'</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> per project"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- descriptions: median </span><span class="si">{</span><span class="n">words</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> words; </span><span class="si">{</span><span class="n">has_will</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> contain the word 'will' (planned work)"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"Battery projects with at least one deliverable listed: </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">'projectID'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;4,</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span>
-    <span class="sa">f</span><span class="s2">"  (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> deliverables, median </span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'projectID'</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> per project)"</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"  deliverable descriptions: median </span><span class="si">{</span><span class="n">words</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> words;"</span>
-    <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">d</span><span class="p">[</span><span class="s1">'description'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\bwill\b'</span><span class="p">,</span><span class="w"> </span><span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> contain the word 'will' (planned work)"</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"  deliverables of type 'Demonstrators, pilots, prototypes':"</span>
+    <span class="sa">f</span><span class="s2">"- of type 'Demonstrators, pilots, prototypes':"</span>
     <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">'deliverableType'</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'Demonstrators, pilots, prototypes'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"Battery projects with at least one periodic report listed: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">'projectID'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;4,</span><span class="si">}</span><span class="s2">;"</span>
-    <span class="sa">f</span><span class="s2">" the CSV holds the report title and an attachment reference, no summary text"</span>
-<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Periodic reports: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">'projectID'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> battery projects list at least one"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- the CSV holds the report title and an attachment reference, no summary text"</span><span class="p">)</span>
+
 <span class="n">status</span> <span class="o">=</span> <span class="n">scope</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Project status in the battery set: </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'SIGNED'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2"> running (signed),"</span>
-    <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'CLOSED'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2"> closed, </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'TERMINATED'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2"> terminated"</span>
-<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Project status in the battery set"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'SIGNED'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2"> running (signed)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'CLOSED'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2"> closed"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'TERMINATED'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2"> terminated"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8707,14 +8726,22 @@ Research and innovation actions (RIA)        94                      87%
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>projectDeliverables.csv 63,253 rows read, 27 excluded; reportSummaries.csv 9,711 rows read, 0 excluded
+<pre>Rows read
+- projectDeliverables.csv: 63,253 rows read, 27 excluded
+- reportSummaries.csv: 9,711 rows read, 0 excluded
 
-Battery projects with at least one deliverable listed:  352 of 662  (1,857 deliverables, median 3 per project)
-  deliverable descriptions: median 24 words; 43% contain the word 'will' (planned work)
-  deliverables of type 'Demonstrators, pilots, prototypes': 70
-Battery projects with at least one periodic report listed:  298; the CSV holds the report title and an attachment reference, no summary text
+Deliverables: 352 of 662 battery projects list at least one
+- 1,857 deliverables, median 3 per project
+- descriptions: median 24 words; 43% contain the word 'will' (planned work)
+- of type 'Demonstrators, pilots, prototypes': 70
 
-Project status in the battery set: 598 running (signed), 32 closed, 32 terminated
+Periodic reports: 298 battery projects list at least one
+- the CSV holds the report title and an attachment reference, no summary text
+
+Project status in the battery set
+- 598 running (signed)
+- 32 closed
+- 32 terminated
 </pre>
 </div>
 </div>
@@ -8727,7 +8754,7 @@ Project status in the battery set: 598 running (signed), 32 closed, 32 terminate
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>What this means.</strong> Among projects at least two years old, fellowships set aside, battery projects publish at about the same rate as the whole programme (68% against 63%). There are 278 such projects, by coincidence as many as in the title-only set, and on that number the gap is not conclusive. Within the battery set the share runs from 42% for EIC projects to 87% for research and innovation actions. This shows that projects report, not that they work. The documents that would say what came out are listed for about half of the projects (352 of 662), behind links. Reading them is the realistic next step, by hand first on a sample. Most projects are still running: "is it working?" is largely a question for the coming years.</p>
+<p><strong>What this means.</strong> Among projects at least two years old, fellowships set aside, battery projects publish at about the same rate as the whole programme (68% against 63%). With only 278 such projects, a gap of five points can be due to chance. (The count equals that of the title-only set by coincidence.) Rates differ widely by instrument (table above). This shows that projects report, not that they work. The documents that would say what came out are listed for about half of the projects (352 of 662), behind links. Reading them is the realistic next step, by hand first on a sample. Most projects are still running: "is it working?" is largely a question for the coming years.</p>
 </div>
 </div>
 </div>
@@ -8771,8 +8798,9 @@ Project status in the battery set: 598 running (signed), 32 closed, 32 terminate
     <span class="p">(</span><span class="s2">"2. single mention, at random"</span><span class="p">,</span> <span class="n">grey</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">mentions</span> <span class="o">==</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">"3. possible miss (outside the broad set)"</span><span class="p">,</span> <span class="n">possible_miss</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
 <span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Strata (candidates counted before earlier strata are removed)"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">STRATA</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">45</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">&gt;4</span><span class="si">}</span><span class="s2"> candidates before earlier strata are removed, </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> drawn"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> candidates, </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> drawn"</span><span class="p">)</span>
 
 <span class="n">sample</span> <span class="o">=</span> <span class="n">cordis</span><span class="o">.</span><span class="n">draw_sample</span><span class="p">(</span><span class="n">projects</span><span class="p">,</span> <span class="n">STRATA</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2026</span><span class="p">)</span>
 <span class="c1"># sorted by id, so the row order does not give the stratum away</span>
@@ -8781,10 +8809,8 @@ Project status in the battery set: 598 running (signed), 32 closed, 32 terminate
 <span class="n">strata_file</span> <span class="o">=</span> <span class="n">cordis</span><span class="o">.</span><span class="n">write_once</span><span class="p">(</span><span class="n">sample</span><span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">"stratum"</span><span class="p">]],</span> <span class="s2">"data/annotation/strata.csv"</span><span class="p">)</span>
 
 <span class="n">frozen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s2">"label"</span><span class="p">:</span> <span class="nb">str</span><span class="p">},</span> <span class="n">keep_default_na</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Annotation sheet: </span><span class="si">{</span><span class="n">sheet</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">frozen</span><span class="p">)</span><span class="si">}</span><span class="s2"> projects);"</span>
-    <span class="sa">f</span><span class="s2">" fresh draw identical to the frozen sheet: </span><span class="si">{</span><span class="nb">set</span><span class="p">(</span><span class="n">frozen</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">set</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span><span class="si">}</span><span class="s2">"</span>
-<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Annotation sheet: </span><span class="si">{</span><span class="n">sheet</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">frozen</span><span class="p">)</span><span class="si">}</span><span class="s2"> projects)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- fresh draw identical to the frozen sheet: </span><span class="si">{</span><span class="nb">set</span><span class="p">(</span><span class="n">frozen</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">set</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8798,12 +8824,14 @@ Project status in the battery set: 598 running (signed), 32 closed, 32 terminate
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>1. another sense or battery-free                25 candidates before earlier strata are removed, 5 drawn
-2. single mention, largest EU contribution     237 candidates before earlier strata are removed, 5 drawn
-2. single mention, at random                   237 candidates before earlier strata are removed, 5 drawn
-3. possible miss (outside the broad set)        32 candidates before earlier strata are removed, 5 drawn
+<pre>Strata (candidates counted before earlier strata are removed)
+- 1. another sense or battery-free: 25 candidates, 5 drawn
+- 2. single mention, largest EU contribution: 237 candidates, 5 drawn
+- 2. single mention, at random: 237 candidates, 5 drawn
+- 3. possible miss (outside the broad set): 32 candidates, 5 drawn
 
-Annotation sheet: data/annotation/sample.csv (20 projects); fresh draw identical to the frozen sheet: True
+Annotation sheet: data/annotation/sample.csv (20 projects)
+- fresh draw identical to the frozen sheet: True
 </pre>
 </div>
 </div>
@@ -8816,7 +8844,7 @@ Annotation sheet: data/annotation/sample.csv (20 projects); fresh draw identical
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Reading the result.</strong> "Agree" means the rule's yes or no matches my label (<code>central</code> or <code>contributes</code> is a yes, <code>none</code> a no); "unsure" means I could not decide. Twenty labels can reveal a gross failure of the rule but cannot measure its accuracy, and a single annotator is a limit in itself.</p>
+<p><strong>Reading the result.</strong> "Agree" means the rule's yes or no matches my label (<code>central</code> or <code>contributes</code> is a yes, <code>none</code> a no); "unsure" means I could not decide. Twenty labels can reveal a gross failure of the rule but cannot measure its accuracy.</p>
 </div>
 </div>
 </div>
@@ -8853,16 +8881,14 @@ Annotation sheet: data/annotation/sample.csv (20 projects); fresh draw identical
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Misses probed (stratum 3): none found among </span><span class="si">{</span><span class="n">miss</span><span class="p">[</span><span class="s1">'labelled'</span><span class="p">]</span><span class="si">}</span><span class="s2"> labelled, </span><span class="si">{</span><span class="n">miss</span><span class="p">[</span><span class="s1">'unsure'</span><span class="p">]</span><span class="si">}</span><span class="s2"> unsure"</span><span class="p">)</span>
 
 <span class="n">largest</span> <span class="o">=</span> <span class="n">projects</span><span class="p">[</span><span class="n">projects</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">labelled</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">labelled</span><span class="p">[</span><span class="s2">"stratum"</span><span class="p">]</span> <span class="o">==</span> <span class="n">STRATA</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"id"</span><span class="p">])]</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">The five largest single-mention projects: EUR </span><span class="si">{</span><span class="n">largest</span><span class="p">[</span><span class="s1">'ecMaxContribution'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e6</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> million of EU contribution,"</span>
-    <span class="sa">f</span><span class="s2">" funding scheme </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">largest</span><span class="p">[</span><span class="s1">'fundingScheme'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span><span class="si">}</span><span class="s2">"</span>
-<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">The five largest single-mention projects"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- EUR </span><span class="si">{</span><span class="n">largest</span><span class="p">[</span><span class="s1">'ecMaxContribution'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e6</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> million of EU contribution"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- funding scheme: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">largest</span><span class="p">[</span><span class="s1">'fundingScheme'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="n">any_label</span> <span class="o">=</span> <span class="n">labelled</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">eurosci</span><span class="p">[</span><span class="s2">"projectID"</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">euroSciVoc on the same 20 projects: </span><span class="si">{</span><span class="n">any_label</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> carry at least one label,"</span>
-    <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">labelled</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">battery_label</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> carry 'electric batteries'"</span>
-<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">euroSciVoc on the same </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">labelled</span><span class="p">)</span><span class="si">}</span><span class="s2"> projects"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- with at least one label: </span><span class="si">{</span><span class="n">any_label</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- with the label 'electric batteries': </span><span class="si">{</span><span class="n">labelled</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">battery_label</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8895,9 +8921,13 @@ total                                             20        20      5        13 
 
 Misses probed (stratum 3): none found among 5 labelled, 1 unsure
 
-The five largest single-mention projects: EUR 141 million of EU contribution, funding scheme HORIZON-JU-IA
+The five largest single-mention projects
+- EUR 141 million of EU contribution
+- funding scheme: HORIZON-JU-IA
 
-euroSciVoc on the same 20 projects: 17 carry at least one label, 1 carry 'electric batteries'
+euroSciVoc on the same 20 projects
+- with at least one label: 17
+- with the label 'electric batteries': 1
 </pre>
 </div>
 </div>
@@ -8910,7 +8940,7 @@ euroSciVoc on the same 20 projects: 17 carry at least one label, 1 carry 'electr
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>What the counts say.</strong> Of the 15 projects the rule includes, I judged 13 not about batteries, 1 <code>contributes</code> and 1 unsure; of the 5 it leaves out, none is a confirmed miss (1 unsure). These are hard cases chosen to test the rule, read by one non-specialist: this is not an error rate for the 662 projects. Seventeen of my 20 labels are <code>none</code>, so a rule answering "no" to every project would agree with 17 of them: a pass mark, such as 16 of 20 to be set with the analysts, only makes sense on a sample that holds enough real battery projects. What the counts do show is that a single mention outside the title is weak evidence, which is decision 1 of section 8.</p>
+<p><strong>What the counts say.</strong> Of the 15 projects the rule includes, I judged 13 not about batteries, 1 <code>contributes</code> and 1 unsure; of the 5 it leaves out, none is a confirmed miss (1 unsure). These are hard cases chosen to test the rule, read by one non-specialist: this is not an error rate for the 662 projects. Seventeen of my 20 labels are <code>none</code>, so a rule answering "no" to every project would agree with 17 of them: a pass mark, such as 16 of 20 to be set with the analysts, only makes sense on a sample that holds enough real battery projects. The counts show that a single mention outside the title is weak evidence, which is decision 1 of section 8.</p>
 </div>
 </div>
 </div>
@@ -8921,9 +8951,9 @@ euroSciVoc on the same 20 projects: 17 carry at least one label, 1 carry 'electr
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>An optional step: a small language model on the same 20 projects.</strong> The keyword rule counts "a battery of tests" as a battery. The cell below asks a language model the question I answered, with the same four labels. From the title and objective, the model returns a label and the sentence it quotes as support. The cell runs only with an API key (see the README).</p>
+<p><strong>An optional step: a small language model on the same 20 projects.</strong> The cell below asks a language model the question I answered, with the same four labels. From the title and objective, the model returns a label and the sentence it quotes as support. The cell runs only with an API key (see the README).</p>
 <p>The run shown below used <code>ministral-8b-latest</code> on the free tier of Mistral AI, which may reuse inputs for training. This is acceptable for public CC BY abstracts, never for internal data. In the unit, as far as I know, the equivalent would be GPT@EC or another tool approved under AI@EC.</p>
-<p>Guard rails: public data only, 20 short calls, and the model decides neither the scope nor whether a project worked. The run is logged in <code>data/annotation/model_answers.csv</code>. Each printed line shows the model's label and the start of the sentence it quotes.</p>
+<p>Guard rails: public data only, 20 short calls, and the model decides neither the scope nor whether a project worked. The run is logged in <code>data/annotation/model_answers.csv</code>. The report folds the list of answers.</p>
 </div>
 </div>
 </div>
@@ -8987,30 +9017,37 @@ euroSciVoc on the same 20 projects: 17 carry at least one label, 1 carry 'electr
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>
-What the model answered, and the sentence it relied on
-  ESiM           central      *"ESiM will create the scientific basis for a radically new technology addressing the pres
-  SonoNeuroS     none         *"The overall goal of the SonoNeuroS project is to develop proof of concept of a fully wir
-  HERA           contributes  *"HERA will quantitatively trade innovative aircraft architectures and configurations requ
-  AMBER          contributes  *"The proposed project AMBER (innovAtive deMonstrator for hyBrid-Electric Regional applica
-  Cable electricity O2 contributes  *"This project proposes the cultivation of cable bacteria on electrodes to harness their p
-  AELECTRA       contributes  *"AELECTRA will develop a groundbreaking system for energy-efficient long-term electrical 
-  LITHOS         contributes  *"LITHOS directly contributes to the 1st and 2nd CRMA benchmarks (10% domestic extraction;
-  HEROPS         none         *"HEROPS aims to introduce climate-neutral propulsion into regional aircraft by developing
-  HERFUSE        contributes  *"The technologies and solutions matured in this project shall be aligned and feed with mo
-  MIXCONDUCTORS  contributes  *"The proposed multiscale method will be used to characterize in silico the growing librar
-  FLEXSTORE      contributes  *"The progressive size diminution of electronic modules are undergoing bottlenecks in dwin
-  BESSEL         none         *"The objective of this proposal is to develop bio-adaptive wave control technologies that
-  POST-PURPLE    contributes  *"The POST-PURPLE project will develop innovative biobased technologies to fully realize t
-  LEAF           contributes  *"The thus created photo-storage microscale supercapacitor is embedded onto the thin foil 
-  CAPTURE        none         *"The objective of CAPTURE is to finalise the development of the third iteration of our te
-  HYPPER         contributes  *"A key tool is electricity storage, especially providing high-capacity, long-term storage
-  CLAMP          none         *"This proposal will undertake an ambitious molecular characterization of FMM and its impa
-  SWIPT-PEMG     none         *"The proposed SWIPT-PEMG will be **minimally invasive, of miniscule size, be battery free
-  LtA            contributes  *"The valley will unite key stakeholders to overcome technological, financial, and regulat
-  DETERMINATION  none         *"EZMEMS provides **DETERMINATION**, a Smart Disposable multisensor' that transform simple
-
-Model labels per stratum
+<details class="code answers">
+<summary>Show the 20 answers (label and quoted sentence)</summary>
+<div class="jp-RenderedHTMLCommon">
+<table class="answers">
+<thead><tr><th>Project</th><th>Model label</th><th>Start of the sentence it quotes, as returned</th></tr></thead>
+<tbody>
+<tr><td>ESiM</td><td>central</td><td>*"ESiM will create the scientific basis for a radically new technology addressing the pres</td></tr>
+<tr><td>SonoNeuroS</td><td>none</td><td>*"The overall goal of the SonoNeuroS project is to develop proof of concept of a fully wir</td></tr>
+<tr><td>HERA</td><td>contributes</td><td>*"HERA will quantitatively trade innovative aircraft architectures and configurations requ</td></tr>
+<tr><td>AMBER</td><td>contributes</td><td>*"The proposed project AMBER (innovAtive deMonstrator for hyBrid-Electric Regional applica</td></tr>
+<tr><td>Cable electricity O2</td><td>contributes</td><td>*"This project proposes the cultivation of cable bacteria on electrodes to harness their p</td></tr>
+<tr><td>AELECTRA</td><td>contributes</td><td>*"AELECTRA will develop a groundbreaking system for energy-efficient long-term electrical </td></tr>
+<tr><td>LITHOS</td><td>contributes</td><td>*"LITHOS directly contributes to the 1st and 2nd CRMA benchmarks (10% domestic extraction;</td></tr>
+<tr><td>HEROPS</td><td>none</td><td>*"HEROPS aims to introduce climate-neutral propulsion into regional aircraft by developing</td></tr>
+<tr><td>HERFUSE</td><td>contributes</td><td>*"The technologies and solutions matured in this project shall be aligned and feed with mo</td></tr>
+<tr><td>MIXCONDUCTORS</td><td>contributes</td><td>*"The proposed multiscale method will be used to characterize in silico the growing librar</td></tr>
+<tr><td>FLEXSTORE</td><td>contributes</td><td>*"The progressive size diminution of electronic modules are undergoing bottlenecks in dwin</td></tr>
+<tr><td>BESSEL</td><td>none</td><td>*"The objective of this proposal is to develop bio-adaptive wave control technologies that</td></tr>
+<tr><td>POST-PURPLE</td><td>contributes</td><td>*"The POST-PURPLE project will develop innovative biobased technologies to fully realize t</td></tr>
+<tr><td>LEAF</td><td>contributes</td><td>*"The thus created photo-storage microscale supercapacitor is embedded onto the thin foil </td></tr>
+<tr><td>CAPTURE</td><td>none</td><td>*"The objective of CAPTURE is to finalise the development of the third iteration of our te</td></tr>
+<tr><td>HYPPER</td><td>contributes</td><td>*"A key tool is electricity storage, especially providing high-capacity, long-term storage</td></tr>
+<tr><td>CLAMP</td><td>none</td><td>*"This proposal will undertake an ambitious molecular characterization of FMM and its impa</td></tr>
+<tr><td>SWIPT-PEMG</td><td>none</td><td>*"The proposed SWIPT-PEMG will be **minimally invasive, of miniscule size, be battery free</td></tr>
+<tr><td>LtA</td><td>contributes</td><td>*"The valley will unite key stakeholders to overcome technological, financial, and regulat</td></tr>
+<tr><td>DETERMINATION</td><td>none</td><td>*"EZMEMS provides **DETERMINATION**, a Smart Disposable multisensor' that transform simple</td></tr>
+</tbody>
+</table>
+</div>
+</details>
+<pre>Model labels per stratum
 model                                       central  contributes  none
 stratum                                                               
 1. another sense or battery-free                  0            1     4
@@ -9046,9 +9083,9 @@ Model right where the rule was wrong: 7; rule right where the model was wrong: 4
 <li>It sets aside the other senses of the word, which the rule cannot do (4 of 5 in stratum 1).</li>
 <li>It answers <code>contributes</code> for 12 projects where I mostly answered <code>none</code>. One explanation, not tested here, is the question: it names storage and materials under <code>contributes</code>, with no counter-example.</li>
 <li>These counts do not rank the model against the rule: they follow from how the sample was built, and a rule answering "no" to every project would agree with 17 of my 20 labels.</li>
-<li>I tried no other model or wording after seeing these counts. The quotes are logged but not checked here.</li>
+<li>I tried no other model or prompt after seeing these counts. The quotes are logged but not checked here.</li>
 </ul>
-<p>What needs work first is the definition of <code>contributes</code>, with the analysts, before anyone tunes a rule or a model.</p>
+<p>The definition of <code>contributes</code> needs work first, with the analysts, before anyone tunes a rule or a model.</p>
 </div>
 </div>
 </div>
@@ -9086,7 +9123,7 @@ Model right where the rule was wrong: 7; rule right where the model was wrong: 4
     li.appendChild(a); ol.appendChild(li);
   });
   nav.appendChild(ol);
-  var all = Array.prototype.slice.call(document.querySelectorAll('details.code'));
+  var all = Array.prototype.slice.call(document.querySelectorAll('details.code:not(.answers)'));
   if (all.length) {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'all-code';
     var label = function (open) { b.textContent = open ? 'Hide all code' : 'Show all code'; b.setAttribute('aria-pressed', open); };
@@ -9097,7 +9134,10 @@ Model right where the rule was wrong: 7; rule right where the model was wrong: 4
   var src = document.createElement('p'); src.className = 'source';
   src.innerHTML = 'This page is the notebook <code>horizon_batteries.ipynb</code>, exported with the outputs it holds. Code and data: <a href="https://github.com/ggustin93/horizon-europe-portfolio-batteries">the repository on GitHub</a>.';
   nav.appendChild(src);
-  h1.insertAdjacentElement('afterend', nav);
+  var byline = h1.nextElementSibling;   // author and date stay under the title, above the list of sections
+  var after = byline && byline.tagName === 'P' && !byline.querySelector('strong') ? byline : h1;
+  if (after !== h1) after.className = 'byline';
+  after.insertAdjacentElement('afterend', nav);
 })();
 </script>
 </html>
